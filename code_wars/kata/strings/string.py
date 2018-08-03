@@ -16,14 +16,10 @@ def mix(s1, s2):
     ans1 = ans_unformated[0]
     ans2 = ans_unformated[1]
     equal_boys = ans_unformated[2]
+    # ans hash
+    ans_hash = [ans1, ans2, equal_boys]
     # make strings
-    ans = make_strings(ans1,ans1,equal_boys)
-    # check hashes
-    print("I am hash1 check", hash1_check)
-    print("I am hash2 check", hash2_check)
-    print("I am ans1", ans1)
-    print("I am ans2", ans2)
-    print("I am equal", equal_boys)
+    ans = make_strings(ans_hash)
     # give the good stuff
     return ans
 
@@ -57,13 +53,43 @@ def set_norm(hash1, hash2):
     hash1_more = {k: hash1[k] for k in hash1 if k in hash2 and hash1[k] > hash2[k]}
     hash2_more = {k: hash2[k] for k in hash2 if k in hash1 and hash2[k] > hash1[k]}
     equal_hash = {k: hash2[k] for k in hash2 if k in hash1 and hash2[k] == hash1[k]}
-    print("this is hash1", hash1_more)
-    print("this is hash2", hash2_more)
-    print("this is equal hash", equal_hash)
     return hash1_more, hash2_more, equal_hash
 
-def make_strings(ans1, ans2, equal_boys):
-    pass
+def make_strings(ans_hash):
+    highest = 0
+    count = 0
+    str = ''
+    while len(ans_hash) > count:
+        for hashy in ans_hash:
+            for x, y in hashy.items():
+                if y > highest:
+                    # find value
+                    highest = y
+                    # find key
+                    letter = x
+                    # find index value of hash
+                    location = ans_hash.index(hashy)
+                    # make string
+                    if location == 0:
+                        pre = "1:"
+                    elif location == 1:
+                        pre = "2:"
+                    else:
+                        pre = "=:"
+                    mid = letter_print(highest, letter)
+                    str+=  pre+mid+'/'
+                    # TODO remove key:value from ans_hash
+                    
+                count = count + 1
+    print(str)
+
+def letter_print(n,letter):
+    ans = ''
+    count = 0
+    while count < n:
+        ans += letter
+        count = count + 1
+    return ans
 
 
 
