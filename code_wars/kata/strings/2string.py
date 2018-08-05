@@ -16,12 +16,20 @@ def mix(s1, s2):
     ans1 = ans_unformated[0]
     ans2 = ans_unformated[1]
     equal_boys = ans_unformated[2]
+    ans1_l = len(ans1)
+    ans2_l = len(ans2)
+    ans3_l = len(equal_boys)
+    length = ans1_l + ans2_l + ans3_l
     # ans hash
     ans_hash = [ans1, ans2, equal_boys]
+    print(ans_hash)
     # make strings
-    ans = make_strings(ans_hash)
+    print(length)
+    ans = make_strings(ans_hash, length)
     # give the good stuff
     print(ans_hash)
+    ans = ans[:-1]
+    print(ans)
     return ans
 
 
@@ -56,31 +64,33 @@ def set_norm(hash1, hash2):
     equal_hash = {k: hash2[k] for k in hash2 if k in hash1 and hash2[k] == hash1[k]}
     return hash1_more, hash2_more, equal_hash
 
-def make_strings(ans_hash):
+def make_strings(ans_hash, ans_hash_len):
     #TODO find highest val in hashy boy
     str = ''
-    for hashy in ans_hash:
-        for x, y in hashy.items():
-            highest = find_highest(ans_hash)
-            if y >= highest:
-                # find value
-                highest = y
-                # find key
-                letter = x
-                # find index value of hash
-                location = ans_hash.index(hashy)
-                # make string
-                if location == 0:
-                    pre = "1:"
-                elif location == 1:
-                    pre = "2:"
-                else:
-                    pre = "=:"
-                mid = letter_print(highest, letter)
-                str+=  pre+mid+'/'
+    count = 0
+    while count < ans_hash_len:
+        highest = find_highest(ans_hash)
+        for hashy in ans_hash:
+            for x, y in hashy.items():
+                if y >= highest:
+                    # find value
+                    highest = y
+                    # find key
+                    letter = x
+                    # find index value of hash
+                    location = ans_hash.index(hashy)
+                    # make string
+                    if location == 0:
+                        pre = "1:"
+                    elif location == 1:
+                        pre = "2:"
+                    else:
+                        pre = "=:"
                     # TODO remove key:value from ans_hash
-                y = 0
-    print(str)
+                    mid = letter_print(highest, letter)
+                    str+=  pre+mid+'/'
+                    hashy[x] = 0
+                    count = count + 1
     return str
 
 def letter_print(n,letter):
@@ -100,4 +110,11 @@ def find_highest(ans_hash):
     return highest
 
 
-mix("Are they here e e e", "ewrwerwerw, they are here q q q")
+
+#mix("Are they here e e e", "ewrwerwerw, they are here q q q")
+
+mix("mmmmm m nnnnn y&friend&Paul has heavy hats! &","my frie n d Joh n has ma n y ma n y frie n ds n&")
+#"1:mmmmmm/=:nnnnnn/1:aaaa/1:hhh/2:yyy/2:dd/2:ff/2:ii/2:rr/=:ee/=:ss"
+mix("codewars", "codewars")
+
+#"1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg"
