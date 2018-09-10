@@ -44,6 +44,10 @@ def county_boy(args, hashy):
             count = args.count(x)
             if count > 1:
                 hashy[x] = count
+    if len(hashy) == 0:
+        hashy = ''
+        print(hashy)
+        return hashy
     return hashy
 
 def set_norm(hash1, hash2):
